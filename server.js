@@ -25,9 +25,9 @@ var server = http.createServer(function(request, response){
   // console.log(method);//GET或POST
   // console.log('headers（请求头）：');
   // console.log(request.headers);
-  // console.log('服务器获取的path值:' + path);
-  // console.log('自己设定的path值 === ./x');
-  // console.log(path === './x');
+  console.log('服务器获取的path值:' + path);
+  console.log('自己设定的path值 === /style.css');
+  console.log(path === '/style.css');
 
   if(path === '/'){
     response.statusCode = 200
@@ -35,28 +35,24 @@ var server = http.createServer(function(request, response){
     response.write(`
     <!DOCTYPE html>
     <head>
-      <link rel="stylesheet" href="/x">
+      <link rel="stylesheet" href="/style.css">
     <head>
     <body>
       <h1>标题<h1>
-      <script src='/y'></script>
+      
     <body>
     `)
     response.end()
-  } else if(path === '/x'){
+  } else if(path === '/style.css'){
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/css;charset=utf-8')
     response.write(`body{color: red;}`)
     response.end()
-  } else if(path === '/y'){
-    response.statusCode = 200
-    response.setHeader('Content-Type', 'text/javascript;charset=utf-8')
-    response.write(`console.log('这是js内容')`)
-    response.end()
-  } else {
+  }
+  else {
     response.statusCode = 404
-    // response.setHeader('Content-Type', 'text/html;charset=utf-8')
-    // response.write(`你输入的路径不存在对应的内容`)
+    response.setHeader('Content-Type', 'text/html;charset=utf-8')
+    response.write(`你访问的页面不存在`)
     response.end()
   }
 
